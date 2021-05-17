@@ -1,0 +1,28 @@
+# grid input file
+
+# start with dimension row X column
+5 X 6
+
+# format for BBOX: (sw, ne); point: (latitude, longitude)
+33.45040, -112.07449, 33.51019, -111.99489
+#BBOX Central & VB to 40 & CB 112.07449°W,  33.45040°N    111.99489°W,  33.51019°N
+
+# 33.45040, -112.07449, 33.5384, -111.99489
+
+# east-west roads - include direction
+East Van Buren Street 
+East McDowell Road 
+    East Thomas Road
+East Indian School Road
+East Camelback Road             
+
+# north-south roads
+North Central Avenue
+  North 7Th Street
+North 16Th Street
+North 24Th Street
+North 32ND Street
+North 40Th Street
+
+
+

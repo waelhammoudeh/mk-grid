@@ -1,0 +1,98 @@
+Input file preparation:
+
+Input file is a text file. It is expected to have values for a bounding box and
+street names and the number of rectangles to make out of those street names.
+Street names can be listed one after another [Four Corners] or in [row X column]
+fashion with at least 2 rows and 2 columns so the program can make four corners
+rectangle.
+
+Best tools you can use are a pen or pencil, few sheets of paper and a text editor.
+
+The bounding box is defined by two points, namely: 
+South-West (sw) point and North-East (ne) point specified in decimal degrees
+listed with (latitude, longitude) order.
+"sw-latitude, sw-longitude, ne-latitude, ne-longitude"
+
+On a sheet of paper draw a rectangle for bounding box, the south-west point is
+the lower-left corner of the rectangle, north-east point is the upper-right
+corner of the rectangle. The bounding box need to enclose all intersections in
+the grid, no more. No need to make it too big. The GPS point can be found in any
+map display program; to name few : google map, open street map, marble or QGIS.
+Make sure the GPS is in "Decimal Degree" format (decimal number).
+In most of these programs you can copy the GPS to the clipboard. Usually this
+GPS point is formatted with (longitude, latitude) order and what we need here is
+to reverse this order to (latitude, longitude) format. Write down the south-west
+point and then the north-east point on one line with each decimal number separated
+by a comma. This will be the bounding box line in the input file.
+
+Street names can provided in two different ways. First as a road intersection
+with two street names on a line. In this case you need four intersections for
+each rectangle. Draw a rectangle on a sheet of paper and name your corners with
+street names, moving clockwise from the lower-left corner (south-west) start
+writing corners one per line:
+south-west cross road
+north-west cross road
+north-east cross road
+south-east cross road
+
+Follow the same procedure for the other rectangles and list them one after the 
+other using the same clockwise movement around each one, be consistent in this
+movement.
+The first line in this [Four corner] format is the number of rectangles, so if
+you list six rectangles write the single digit number '6' on the first line.
+
+The second way street names can provided is the [Row X Column] format. This
+format assumes roads to run in fairly straight lines, Phoenix, Arizona is laid
+out in a grid system where this format works great to draw a grid over the map.
+In this format we need at least 2 horizontal roads and 2 vertical roads to make
+one rectangle. To list horizontal roads we move from south to north, and to list
+vertical roads we move west to east, we list one street / road name per line.
+From your map start from the sothern most part and moving north (UP) start your
+listing of the horizontal roads, writing one name after the other in your text
+input file until you list all horizontal roads. Follow that with names of your
+vertical roads starting from the west (left side of the map) to the east (right
+side of the map).
+
+The first line is the number of rectangles in [Row x Column] format, without 
+the brackets. Write how many rows you listed followed by any single character
+from the set [Xx*] followed by the number of columns you listed.
+
+How to use the output:
+
+The program produces a text in Well Known Text format for polygons. This text
+can be used with QGIS to draw the grid. The program by default writes it output
+to the screen, use the output option (-o or --output) followed by file name to
+save that output to a disk file. QGIS expects to find "Delimited Text" in files
+ending with ".csv" or Comma Separated Values, the program will append this 
+extension to file name if you did not include any extension only, other wise it
+does nothing to file name. An example of program output:
+
+wkt;
+"POLYGON ((-112.0564484 33.4586782, -112.0564715 33.4729761, -112.0389638 33.4729638, -112.0390102 33.4586488, -112.0564484 33.4586782))"
+"POLYGON ((-112.0564715 33.4729761, -112.0563754 33.4874327, -112.0388972 33.4875282, -112.0389638 33.4729638, -112.0564715 33.4729761))"
+"POLYGON ((-112.0390102 33.4586488, -112.0388972 33.4875282, -112.0042227 33.4878275,   0.0000000  0.0000000, -112.0390102 33.4586488))"
+
+The above output is from input file "roos36.grid" from the examples directory.
+Note there is a point with "0.0000000  0.0000000" values on the third line.
+That was a missing value, QGIS will not accept files with "missing values". The
+program will inform you when it can not find GPS for intersection from Overpass
+server with the intersection street names. In this case it outputs this line:
+
+mk-grid: Could not get GPS for some cross roads! Please see list below.
+
+North 36Th Street, East Roosevelt Street
+
+When looking at the map for Phoenix, Arizona we find Roosevelt Street does NOT
+meet 36Th Street. To use the above output, you can delete the last line and
+only draw two polygons. Or you can manually edit the output at that point to
+values of where it should be by copying the GPS from any map display program
+making sure to use the same format as above. The edited output is below with
+GPS value of "-112.00407  33.45857" replacing the "0.0000000  0.0000000"
+
+wkt;
+"POLYGON ((-112.0564484 33.4586782, -112.0564715 33.4729761, -112.0389638 33.4729638, -112.0390102 33.4586488, -112.0564484 33.4586782))"
+"POLYGON ((-112.0564715 33.4729761, -112.0563754 33.4874327, -112.0388972 33.4875282, -112.0389638 33.4729638, -112.0564715 33.4729761))"
+"POLYGON ((-112.0390102 33.4586488, -112.0388972 33.4875282, -112.0042227 33.4878275,  -112.00407  33.45857, -112.0390102 33.4586488))"
+
+
+

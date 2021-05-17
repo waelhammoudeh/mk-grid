@@ -1,0 +1,27 @@
+# this is an example 4 corners intersections input file for mk-grid
+# starts with number of boxes then bbox followed by 4 intersections
+# for each rectangle in order: clockwise or counter-clockwise - do NOT
+# mix orders; please use one or the other.
+
+3
+# format for BBOX: (sw, ne); point: (latitude, longitude)
+33.45040, -112.07449, 33.51019, -111.99489
+
+# 3 boxes with 4 corners each in order clockwise or counter-clockwise
+# no checking is done for the order, it is user responsibility to get right.
+north 12th street, east Roosevelt street
+north 12th street, east oak street
+North 20th street, east oak street
+north 20th street, east roosevelt street
+
+# 2nd box
+north 12th street, east oak street
+ North 12Th Street, East Osborn Road
+North 20Th Street, East Osborn Road
+North 20Th Street, East Oak Street
+
+# 3rd box
+North 20Th Street, East Roosevelt Street
+North 20Th Street, East Osborn Road
+North 36Th Street, East Osborn Road
+North 36Th Street, East Roosevelt Street
