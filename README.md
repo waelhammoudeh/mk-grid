@@ -1,5 +1,7 @@
 The Grid
 
+Please see the grid-howto file too
+
 The boggy that does not let you sleep at night.
 
 Order and organization make life easier, most people know the Cartesian grid.
