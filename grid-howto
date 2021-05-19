@@ -1,10 +1,16 @@
 Input file preparation:
 
 Input file is a text file. It is expected to have values for a bounding box and
-street names and the number of rectangles to make out of those street names.
-Street names can be listed one after another [Four Corners] or in [row X column]
-fashion with at least 2 rows and 2 columns so the program can make four corners
-rectangle.
+cross roads with street names and the number of rectangles to make out of those
+cross roads.
+It takes four cross roads to define a rectangle, cross roads can specified in two
+different ways, the first is listed one after another [Four Corners], the second
+is in [row X column] fashion with at least 2 rows and 2 columns so the program 
+can make four corners rectangle. 
+The two format can not be mixed in one input file, however the program accepts a
+list of input files (space separated) in a single invocation and processes each
+independently; you may use different input file format in the list. When using a
+list the output is combined in one result.
 
 Best tools you can use are a pen or pencil, few sheets of paper and a text editor.
 
@@ -23,13 +29,15 @@ In most of these programs you can copy the GPS to the clipboard. Usually this
 GPS point is formatted with (longitude, latitude) order and what we need here is
 to reverse this order to (latitude, longitude) format. Write down the south-west
 point and then the north-east point on one line with each decimal number separated
-by a comma. This will be the bounding box line in the input file.
+by a comma. This will be the bounding box line in the input file. Also it is the
+second line in both input format.
 
 Street names can provided in two different ways. First as a road intersection
-with two street names on a line. In this case you need four intersections for
-each rectangle. Draw a rectangle on a sheet of paper and name your corners with
-street names, moving clockwise from the lower-left corner (south-west) start
-writing corners one per line:
+with two street names on a line comma separated. In this case you need four 
+intersections for each rectangle. Draw a rectangle on a sheet of paper and name
+your corners with street names, moving clockwise from the lower-left corner 
+(south-west) start writing corners one per line:
+
 south-west cross road
 north-west cross road
 north-east cross road
@@ -46,16 +54,17 @@ format assumes roads to run in fairly straight lines, Phoenix, Arizona is laid
 out in a grid system where this format works great to draw a grid over the map.
 In this format we need at least 2 horizontal roads and 2 vertical roads to make
 one rectangle. To list horizontal roads we move from south to north, and to list
-vertical roads we move west to east, we list one street / road name per line.
+vertical roads we move from west to east, we list one street / road name per line.
 From your map start from the sothern most part and moving north (UP) start your
 listing of the horizontal roads, writing one name after the other in your text
-input file until you list all horizontal roads. Follow that with names of your
-vertical roads starting from the west (left side of the map) to the east (right
-side of the map).
+input file until you list all horizontal roads; those are your rows. Follow that 
+with names of your vertical roads starting from the west (left side of the map) 
+to the east (right side of the map); those are your columns.
 
 The first line is the number of rectangles in [Row x Column] format, without 
 the brackets. Write how many rows you listed followed by any single character
-from the set [Xx*] followed by the number of columns you listed.
+from the set [Xx*] followed by the number of columns you listed, of course use
+space to separate elements (tokens).
 
 How to use the output:
 
@@ -110,13 +119,10 @@ in one command:
 mk-grid -o combined examples/roos36.grid examples/big.grid
 
 The above command will produce file "combined.csv" in $HOME/mk-grid directory.
-Open the output file and correct the missing GPS point, then you be able to add
-a layer in QGIS using that file.
+Open the output file and correct the missing GPS point, then you will be able to
+add a layer in QGIS using that file.
 
 The "pictures" directory has few screen shoots for the examples with that of the 
 same file name and the combined picture of the two from the command above. Note
 that the layer settings I changed were the "Fill Color" to transparent and the
 stroke fill width was increased.
-
-
-
